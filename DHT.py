@@ -21,7 +21,7 @@ try:
             line = ser.readline().decode('utf-8').strip()
             
             print(line)
-            print("Hora atual:", hora_formatada)
+            
             # Extrair dados usando divisão e limpeza
             parts = line.split('\t')
             if len(parts) == 4:
@@ -29,7 +29,7 @@ try:
                 temperatura = parts[1].split(':')[1].strip().replace(' °C', '')
                 heat_index_f = parts[2].split(':')[1].strip().replace(' °F', '')
                 heat_index_c = parts[3].split(':')[1].strip().replace(' °C', '')
-
+                print("Hora atual:", hora_formatada)
                 # Exibe os dados extraídos
                 #print(f"Temperatura: {temperatura}°C")
                 #print(f"Heat Index (F): {heat_index_f}°F")
