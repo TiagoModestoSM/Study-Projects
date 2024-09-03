@@ -1,3 +1,9 @@
+#|Autor: Tiago Modesto (Labigó)                           |
+#|Data:04/06/2024                                         |
+#|Teste de código do Sensor DHT11 de Umidade e Temperatura|
+#|Implementa o Serial do arduino no python                |
+
+
 import serial
 
 # Configure a porta serial e a taxa de transmissão
