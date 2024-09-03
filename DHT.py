@@ -1,30 +1,28 @@
 import serial
 
 # Configure a porta serial e a taxa de transmissão
-ser = serial.Serial('COM5', 9600, timeout=1)  # Altere 'COM3' para a porta do seu Arduino
-print('Sensor de temperatura e humidade')
-def process_data(data):
-    try:
-        parts = data.split('\t')
-        umidade = parts[0].split(':')[1].strip().replace('%', '')
-        temperatura = parts[1].split(':')[1].strip().replace(' °C', '')
-        heat_index_f = parts[2].split(':')[1].strip().replace(' °F', '')
-        heat_index_c = parts[3].split(':')[1].strip().replace(' °C', '')
-        return umidade, temperatura, heat_index_f, heat_index_c
-    except (IndexError, ValueError):
-        return None, None, None, None
+ser = serial.Serial('COM5', 9600)  # Altere 'COM3' para a porta do seu Arduino
+ser.timeout = 1  # Timeout para leitura (em segundos)
 
 try:
     while True:
-        if ser.in_waiting > 0:
+        if ser.in_waiting > 0:  # Verifica se há dados disponíveis
             line = ser.readline().decode('utf-8').strip()
-            if "Umidade:" in line:
-                print(line)
-                print('--------------------------------------------------------------------------------------------')
-                umidade, temperatura, heat_index_f, heat_index_c = process_data(line)
-                
+            print(line)
+            
+            # Extrair dados usando divisão e limpeza
+            parts = line.split('\t')
+            if len(parts) == 4:
+                umidade = parts[0].split(':')[1].strip().replace('%', '')
+                temperatura = parts[1].split(':')[1].strip().replace(' °C', '')
+                heat_index_f = parts[2].split(':')[1].strip().replace(' °F', '')
+                heat_index_c = parts[3].split(':')[1].strip().replace(' °C', '')
 
-                    
+                # Exibe os dados extraídos
+                #print(f"Temperatura: {temperatura}°C")
+                #print(f"Heat Index (F): {heat_index_f}°F")
+                #print(f"Heat Index (C): {heat_index_c}°C")
+                
 except KeyboardInterrupt:
     print("Programa interrompido.")
 finally:
