@@ -5,6 +5,7 @@
 
 
 import serial
+from datetime import datetime
 
 # Configure a porta serial e a taxa de transmissão
 ser = serial.Serial('COM5', 9600)  # Altere 'COM3' para a porta do seu Arduino
@@ -12,10 +13,15 @@ ser.timeout = 1  # Timeout para leitura (em segundos)
 
 try:
     while True:
+        # Obter a hora atual
+        now = datetime.now()
+        # Formatando a hora
+        hora_formatada = now.strftime('%Y-%m-%d %H:%M:%S')
         if ser.in_waiting > 0:  # Verifica se há dados disponíveis
             line = ser.readline().decode('utf-8').strip()
-            print(line)
             
+            print(line)
+            print("Hora atual:", hora_formatada)
             # Extrair dados usando divisão e limpeza
             parts = line.split('\t')
             if len(parts) == 4:
