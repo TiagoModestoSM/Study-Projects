@@ -6,7 +6,6 @@
 
 import serial
 from datetime import datetime
-
 # Configure a porta serial e a taxa de transmissão
 ser = serial.Serial('COM5', 9600)  # Altere 'COM3' para a porta do seu Arduino
 ser.timeout = 1  # Timeout para leitura (em segundos)
