@@ -9,7 +9,7 @@ from datetime import datetime
 # Configure a porta serial e a taxa de transmissão
 ser = serial.Serial('COM5', 9600)  # Altere 'COM3' para a porta do seu Arduino
 ser.timeout = 1  # Timeout para leitura (em segundos)
-
+print("TERMOSTATO DIGITAL\n-----------------------------------------------------------------------")
 try:
     while True:
         # Obter a hora atual
@@ -18,8 +18,6 @@ try:
         hora_formatada = now.strftime('%Y-%m-%d %H:%M:%S')
         if ser.in_waiting > 0:  # Verifica se há dados disponíveis
             line = ser.readline().decode('utf-8').strip()
-            
-            print(line)
             
             # Extrair dados usando divisão e limpeza
             parts = line.split('\t')
@@ -30,8 +28,8 @@ try:
                 heat_index_c = parts[3].split(':')[1].strip().replace(' °C', '')
                 print("Hora atual:", hora_formatada)
                 # Exibe os dados extraídos
-                #print(f"Temperatura: {temperatura}°C")
-                #print(f"Heat Index (F): {heat_index_f}°F")
+                print(f"Temperatura: {temperatura}°C | Heat Index (F): {heat_index_f}°F | Heat Index (C): {heat_index_c}°C\n-----------------------------------------------------------------------")
+               #print(f"Heat Index (F): {heat_index_f}°F")
                 #print(f"Heat Index (C): {heat_index_c}°C")
                 
 except KeyboardInterrupt:
