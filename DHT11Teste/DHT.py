@@ -28,7 +28,7 @@ try:
                 heat_index_c = parts[3].split(':')[1].strip().replace(' °C', '')
                 print("Hora atual:", hora_formatada)
                 # Exibe os dados extraídos
-                print(f"Temperatura: {temperatura}°C | Heat Index (F): {heat_index_f}°F | Heat Index (C): {heat_index_c}°C\n-----------------------------------------------------------------------")
+                print(f"Umidade: {umidade} % | Temperatura: {temperatura}°C | Heat Index (F): {heat_index_f}°F | Heat Index (C): {heat_index_c}°C\n-----------------------------------------------------------------------")
                #print(f"Heat Index (F): {heat_index_f}°F")
                 #print(f"Heat Index (C): {heat_index_c}°C")
                 
