@@ -20,14 +20,16 @@ def finalizar_app():
 def escolher_opcoes():
     opcao_escolhida = int(input('Escolha uma opção: '))
         
-    if opcao_escolhida ==  1:
-        print('Cadastrar Restaurante')
-    elif opcao_escolhida ==  2:
+    if opcao_escolhida ==  1: # match opcao_escolhida:
+        print('Cadastrar Restaurante') # case 1:
+    elif opcao_escolhida ==  2:       #print('Adicionar restaurante')
         print('Listar Restaurante')
     elif opcao_escolhida ==  3:
         print('Ativar Restaurante')
     elif opcao_escolhida == 4 :
         finalizar_app()
+    else: # case _:
+        print('Opção Inválida') #  print('Opção Inválida)
 
 def main(): 
     exibir_nome_do_programa()
