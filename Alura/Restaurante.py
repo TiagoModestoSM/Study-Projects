@@ -1,6 +1,7 @@
 import os
-restaurantes = [{'nome': 'Pizzas', 'categoria': 'Pizza', 'ativo': True}, {'nome': 'Sushis', 'categoria': 'Japonesa', 'ativo': False}, {'nome': 'Comida', 'categoria': 'Italiana', 'ativo': False}
-]
+restaurantes = [{'nome': 'Pizzas', 'categoria': 'Pizza', 'ativo': True},
+                {'nome': 'Sushis', 'categoria': 'Japonesa', 'ativo': False},
+                {'nome': 'Comida', 'categoria': 'Italiana', 'ativo': False}]
 def exibir_nome_do_programa():
     print("""
 █████████████████████▀███████████████████████████████████████████████████████████████
@@ -37,7 +38,9 @@ def opcao_invalida():
 def cadastrar_novo_restaurante():
     exibir_subtitulo('Cadastro de Novos Restaurantes')
     nome_do_restaurante = input('Digite o Nome do Restaurante que deseja cadastrar: \n')
-    restaurantes.append(nome_do_restaurante)
+    categoria = input(f'Digite a categoria do restaurante {nome_do_restaurante}: ')
+    dados_do_restaurante = {'nome': nome_do_restaurante, 'categoria': categoria, 'ativo': False}
+    restaurantes.append(dados_do_restaurante)
     print(f'O restaurante {nome_do_restaurante} foi cadastrado com sucesso')
     voltar_menu()
 
