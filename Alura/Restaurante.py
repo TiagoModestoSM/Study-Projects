@@ -8,6 +8,7 @@ restaurantes = [{'nome': 'Pizzas', 'categoria': 'Pizza', 'ativo': True},
                 {'nome': 'Sushis', 'categoria': 'Japonesa', 'ativo': False},
                 {'nome': 'Comida', 'categoria': 'Italiana', 'ativo': False}]
 def exibir_nome_do_programa():
+    '''Essa função exibe o nome do programa na tela de comando'''
     print("""
 █████████████████████▀███████████████████████████████████████████████████████████████
 █─▄─▄─█▄─▄██▀▄─██─▄▄▄▄█▄─██─▄█▄─▄█▄─▀█▄─▄███─▄▄▄─█─▄▄─█▄─▀█▀─▄█▄─▄█▄─▄▄▀██▀▄─██─▄▄▄▄█
