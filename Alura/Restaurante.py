@@ -1,12 +1,22 @@
-import os, datetime
+import os, datetime, random
 from datetime import datetime
 agora = datetime.now()
 data_formatada = agora.strftime('%d/%m/%Y')
 hora_formatada = agora.strftime('%H:%M:%S')
 
-restaurantes = [{'nome': 'Pizzas', 'categoria': 'Pizza', 'ativo': True},
-                {'nome': 'Sushis', 'categoria': 'Japonesa', 'ativo': False},
-                {'nome': 'Comida', 'categoria': 'Italiana', 'ativo': False}]
+numeros_cadastrados = []
+restaurantes = [{'nome': 'Pizzas', 'categoria': 'Pizza', 'ativo': True, 'cadastro': '1111111111'},
+                {'nome': 'Sushis', 'categoria': 'Japonesa', 'ativo': False, 'cadastro': '2222222222'},
+                {'nome': 'Comida', 'categoria': 'Italiana', 'ativo': False, 'cadastro': '3333333333'}]
+
+def gerar_numero_cadastro():
+    while True:
+        cadastro_unico = random.randint(1000000000, 9999999999)
+        if cadastro_unico not in numeros_cadastrados:
+            numeros_cadastrados.append(cadastro_unico)
+            return cadastro_unico
+        
+        
 def exibir_nome_do_programa():
     '''Essa função exibe o nome do programa na tela de comando'''
     print("""
@@ -18,13 +28,14 @@ def exibir_nome_do_programa():
 def exibir_opcoes():
     print('1. Cadastrar Restaurante')
     print('2. Listar Restaurante')
-    print('3. Alterar estado do Restaurante')
-    print('4. Sair\n')
+    print('3. Alterar Estado do Restaurante')
+    print('4. Remover Restaurante')
+    print('5. Sair')
 
 
 def finalizar_app():
    exibir_subtitulo('Finalizando App')
-
+   exit
 
 def exibir_subtitulo(texto):
     os.system('cls')
@@ -60,21 +71,22 @@ def cadastrar_novo_restaurante():
     exibir_subtitulo('Cadastro de Novos Restaurantes')
     nome_restaurante = input('Digite o Nome do Restaurante que deseja cadastrar: \n')
     categoria = input(f'Digite a categoria do restaurante {nome_restaurante}: ')
-    dados_do_restaurante = {'nome': nome_restaurante, 'categoria': categoria, 'ativo': False}
+    cadastro_unico = gerar_numero_cadastro()
+    dados_do_restaurante = {'nome': nome_restaurante, 'categoria': categoria, 'ativo': False, 'cadastro': cadastro_unico}
     restaurantes.append(dados_do_restaurante)
-
     print(f'O restaurante {nome_restaurante} foi cadastrado com sucesso em {data_formatada} às {hora_formatada}')
-    
+
     voltar_menu()
 
 def listar_restaurantes():
     exibir_subtitulo('Listando os restaurantes')
-    print(f'{'|NOME DO RESTAURANTE'.ljust(24)} | {'CATEGORIA'.ljust(20)} | {'STATUS'.ljust(20)}|')
+    print(f'{'|NOME DO RESTAURANTE'.ljust(24)} | {'CATEGORIA'.ljust(20)} | {'STATUS'.ljust(20)}| {'CADASTRO'.ljust(20)}|')
     for i, restaurante in enumerate(restaurantes, start=1):
         nome_restaurante = restaurante['nome']
         categoria_restaurante = restaurante['categoria']
         ativos_restaurante = 'Ativado' if restaurante['ativo'] else 'Desativado'
-        print(f'|{i}. {nome_restaurante.ljust(20)} | {categoria_restaurante.ljust(20)} | {ativos_restaurante.ljust(20)}|')
+        restaurante_cadastrado = restaurante['cadastro']
+        print(f'|{i}. {nome_restaurante.ljust(20)} | {categoria_restaurante.ljust(20)} | {ativos_restaurante.ljust(20)}| {str(restaurante_cadastrado).ljust(20)}|')
         
     voltar_menu()
 
@@ -93,6 +105,35 @@ def alterar_estado():
         print('Restaurante não encontrado')
     
     voltar_menu()
+    
+def remover_restaurante():
+    exibir_subtitulo('Qual restaurante deseja remover?')
+    restaurante_removido = input('Digite o código do restaurante que deseja remover: ')
+    encontrado = False
+
+    for i, restaurante in enumerate(restaurantes):
+        if restaurante_removido == str(restaurante['cadastro']):
+            confirmacao = input(f'Você realmente deseja remover o restaurante "{restaurante["nome"]}"? (s/n): ')
+            if confirmacao.lower() == 's':
+                del restaurantes[i]
+                print(f'O restaurante com código {restaurante_removido} foi removido com sucesso em {data_formatada} às {hora_formatada}')
+                encontrado = True
+                voltar_menu()
+            elif confirmacao.lower() == 'n':
+                print('Remoção cancelada.')
+                voltar_menu()
+        else:
+            os.system('cls')
+            exibir_subtitulo('Digite uma opção válida')
+            input('Aperte qualquer tecla para voltar à área de remoção: ')
+            remover_restaurante()
+            break
+        
+
+    if not encontrado:
+        print('Restaurante não encontrado.')
+    voltar_menu()
+    
 def escolher_opcoes():
     try:
         opcao_escolhida = int(input('Escolha uma opção: '))
@@ -104,7 +145,9 @@ def escolher_opcoes():
             listar_restaurantes()
         elif opcao_escolhida ==  3:
             alterar_estado()
-        elif opcao_escolhida == 4 :
+        elif opcao_escolhida == 4:
+            remover_restaurante()
+        elif opcao_escolhida == 5 :
             finalizar_app()
         else: # case _:print('Opção Inválida')
             opcao_invalida()
