@@ -108,6 +108,12 @@ def alterar_estado():
     
 def remover_restaurante():
     exibir_subtitulo('Qual restaurante deseja remover?')
+    for i, restaurante in enumerate(restaurantes, start=1):
+        nome_restaurante = restaurante['nome']
+        categoria_restaurante = restaurante['categoria']
+        ativos_restaurante = 'Ativado' if restaurante['ativo'] else 'Desativado'
+        restaurante_cadastrado = restaurante['cadastro']
+        print(f'|{i}. {nome_restaurante.ljust(20)} | {categoria_restaurante.ljust(20)} | {ativos_restaurante.ljust(20)}| {str(restaurante_cadastrado).ljust(20)}|')
     restaurante_removido = input('Digite o código do restaurante que deseja remover: ')
     encontrado = False
 
@@ -118,20 +124,15 @@ def remover_restaurante():
                 del restaurantes[i]
                 print(f'O restaurante com código {restaurante_removido} foi removido com sucesso em {data_formatada} às {hora_formatada}')
                 encontrado = True
-                voltar_menu()
+                break  # Sai do loop após remover
             elif confirmacao.lower() == 'n':
                 print('Remoção cancelada.')
-                voltar_menu()
-        else:
-            os.system('cls')
-            exibir_subtitulo('Digite uma opção válida')
-            input('Aperte qualquer tecla para voltar à área de remoção: ')
-            remover_restaurante()
-            break
-        
+                encontrado = True
+                break  # Sai do loop se a remoção for cancelada
 
     if not encontrado:
         print('Restaurante não encontrado.')
+
     voltar_menu()
     
 def escolher_opcoes():
