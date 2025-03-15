@@ -104,14 +104,22 @@ def listar_restaurantes():
 
 def alterar_estado():
     exibir_subtitulo('Alterar estado do Restaurante')
-    nome_do_restaurante = input('Digite o nome do restaurante que deseja ativar/desativar: ')
+    
+    for i, restaurante in enumerate(restaurantes, start=1):
+        nome_restaurante = restaurante['nome']
+        categoria_restaurante = restaurante['categoria']
+        ativos_restaurante = 'Ativado' if restaurante['ativo'] else 'Desativado'
+        restaurante_cadastrado = restaurante['cadastro']
+        print(f'|{i}. {nome_restaurante.ljust(20)} | {categoria_restaurante.ljust(20)} | {ativos_restaurante.ljust(20)}| {str(restaurante_cadastrado).ljust(20)}|')
+        
+    codigo_do_restaurante = input('Digite o nome do restaurante que deseja ativar/desativar: ')
     restaurante_encontrado = False
     
     for restaurante in restaurantes:
-        if nome_do_restaurante == restaurante['nome']:
+        if codigo_do_restaurante == str(restaurante['cadastro']):
             restaurante_encontrado = True
             restaurante['ativo'] = not restaurante['ativo']
-            mensagem = f'O restaurante: {nome_do_restaurante} foi ativado com sucesso em {data_formatada} às {hora_formatada}' if restaurante['ativo'] else f' o {nome_do_restaurante} foi desativado com sucesso em {data_formatada} às {hora_formatada}'
+            mensagem = f'O restaurante: {restaurante['nome']}, foi ativado com sucesso em {data_formatada} às {hora_formatada}' if restaurante['ativo'] else f' o Restaurante: {restaurante['nome']}, foi desativado com sucesso em {data_formatada} às {hora_formatada}'
             print(mensagem)
     if not restaurante_encontrado:
         print('Restaurante não encontrado')
@@ -126,26 +134,31 @@ def remover_restaurante():
         ativos_restaurante = 'Ativado' if restaurante['ativo'] else 'Desativado'
         restaurante_cadastrado = restaurante['cadastro']
         print(f'|{i}. {nome_restaurante.ljust(20)} | {categoria_restaurante.ljust(20)} | {ativos_restaurante.ljust(20)}| {str(restaurante_cadastrado).ljust(20)}|')
-    restaurante_removido = input('Digite o código do restaurante que deseja remover: ')
-    encontrado = False
+    while True:
+        restaurante_removido = input('Digite o código do restaurante que deseja remover: ')
+        encontrado = False
 
-    for i, restaurante in enumerate(restaurantes):
-        if restaurante_removido == str(restaurante['cadastro']):
-            confirmacao = input(f'Você realmente deseja remover o restaurante "{restaurante["nome"]}"? (s/n): ')
-            if confirmacao.lower() == 's':
-                del restaurantes[i]
-                print(f'O restaurante com código {restaurante_removido} foi removido com sucesso em {data_formatada} às {hora_formatada}')
-                encontrado = True
-                break  # Sai do loop após remover
-            elif confirmacao.lower() == 'n':
-                print('Remoção cancelada.')
-                encontrado = True
-                break  # Sai do loop se a remoção for cancelada
+        for i, restaurante in enumerate(restaurantes):
+            if restaurante_removido == str(restaurante['cadastro']):
+                while True:
+                    confirmacao = input(f'Você realmente deseja remover o restaurante "{restaurante["nome"]}"? (s/n): ')
+                    confirmacao = confirmacao.lower()
+                    if confirmacao in ['s', 'sim']:
+                        del restaurantes[i]
+                        print(f'O restaurante com código {restaurante_removido} foi removido com sucesso em {data_formatada} às {hora_formatada}')
+                        encontrado = True
+                        break
+                    elif confirmacao in ['n', 'não']:
+                        print('Remoção cancelada.')
+                        encontrado = True
+                        break  # Sai do loop se a remoção for cancelada
+                    else:
+                        print('Digite um valor válido (s) para sim (n) para não')
 
-    if not encontrado:
-        print('Restaurante não encontrado.')
+        if not encontrado:
+            print('Restaurante não encontrado.')
 
-    voltar_menu()
+        voltar_menu()
     
 def escolher_opcoes():
     try:
