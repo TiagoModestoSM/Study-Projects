@@ -69,8 +69,20 @@ def cadastrar_novo_restaurante():
     - Data e Hora do Cadastro
     '''
     exibir_subtitulo('Cadastro de Novos Restaurantes')
-    nome_restaurante = input('Digite o Nome do Restaurante que deseja cadastrar: \n')
-    categoria = input(f'Digite a categoria do restaurante {nome_restaurante}: ')
+    
+    
+    while True:
+        nome_restaurante = input('Digite o Nome do Restaurante que deseja cadastrar: ')
+        if nome_restaurante.strip():
+            break
+        else:
+            print('Você não digitou nada. Por favor, insira um nome válido.')
+    while True:
+        categoria = input(f'Digite a categoria do restaurante {nome_restaurante}: ')
+        if categoria.strip():
+            break
+        else:
+            print('Você não digitou nada. Por favor, insira uma categoria válida.')
     cadastro_unico = gerar_numero_cadastro()
     dados_do_restaurante = {'nome': nome_restaurante, 'categoria': categoria, 'ativo': False, 'cadastro': cadastro_unico}
     restaurantes.append(dados_do_restaurante)
