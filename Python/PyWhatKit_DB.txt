@@ -1,0 +1,25 @@
+Date: 17/3/2025
+Time: 14:45
+Phone Number: +5586998332144
+Message: Teste
+--------------------
+Date: 17/3/2025
+Time: 14:46
+Phone Number: +5586998332144
+Message: Teste
+--------------------
+Date: 17/3/2025
+Time: 14:50
+Phone Number: +5586998332144
+Message: Tiago
+--------------------
+Date: 17/3/2025
+Time: 14:53
+Phone Number: +5586998332144
+Message: Hello
+--------------------
+Date: 17/3/2025
+Time: 14:56
+Phone Number: +558698439031
+Message: Teste de Mensagem via Python
+--------------------
