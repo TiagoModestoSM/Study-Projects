@@ -112,7 +112,7 @@ def alterar_estado():
         restaurante_cadastrado = restaurante['cadastro']
         print(f'|{i}. {nome_restaurante.ljust(20)} | {categoria_restaurante.ljust(20)} | {ativos_restaurante.ljust(20)}| {str(restaurante_cadastrado).ljust(20)}|')
         
-    codigo_do_restaurante = input('Digite o nome do restaurante que deseja ativar/desativar: ')
+    codigo_do_restaurante = input('Digite o código de cadastro do restaurante que deseja ativar/desativar: ')
     restaurante_encontrado = False
     
     for restaurante in restaurantes:
