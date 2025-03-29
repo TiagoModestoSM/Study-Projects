@@ -4,9 +4,11 @@ from modelos.cardapio.prato import Prato
 restaurante_praca = Restaurante('Praça','Gourmet')
 bebida_refri = Bebida('Coca-Cola', 8, 'grande')
 prato_churras = Prato('Picanha', 20, 'FAZ O L')
+restaurante_praca.adicionar_no_cardapio(bebida_refri)
+restaurante_praca.adicionar_no_cardapio(prato_churras)
 def main():
     print(bebida_refri)
     print(prato_churras)
-    
+     
 if __name__ == '__main__':
     main()
