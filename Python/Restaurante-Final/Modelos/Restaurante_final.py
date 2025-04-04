@@ -1,6 +1,5 @@
 from modelos.avaliacao import Avaliacao
 from modelos.cardapio.item_cardapio import ItemCardapio
-
 class Restaurante:
     restaurantes = []
     def __init__(self, nome, categoria):
@@ -34,7 +33,7 @@ class Restaurante:
             print(f'Restaurante "{novo_restaurante._nome}" cadastrado com sucesso!')
         else:
             print("Nome ou categoria inválidos.")
-    
+        
     @classmethod
     def listar_restaurantes(cls):
         print(f'{'Nome do Restaurante'.ljust(25)} | {'Categoria'.ljust(25)} | {'Avaliação'.ljust(25)} {'Status'.ljust(25)}')
