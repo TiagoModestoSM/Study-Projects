@@ -16,6 +16,25 @@ class Restaurante:
     def __str__(self):
         
         return f' {self._nome} | {self._categoria}'
+    
+    def exibir_opcoes():
+        print('1. Cadastrar Restaurante')
+        print('2. Listar Restaurante')
+        print('3. Alterar Estado do Restaurante')
+        print('4. Remover Restaurante')
+        print('5. Sair')
+    
+    @classmethod
+    def cadastrar_novo_restaurante(cls):
+        nome = input("Digite o nome do restaurante: ").strip()
+        categoria = input("Digite a categoria: ").strip()
+        
+        if nome and categoria:
+            novo_restaurante = cls(nome, categoria)  # Criando uma instância da classe
+            print(f'Restaurante "{novo_restaurante._nome}" cadastrado com sucesso!')
+        else:
+            print("Nome ou categoria inválidos.")
+    
     @classmethod
     def listar_restaurantes(cls):
         print(f'{'Nome do Restaurante'.ljust(25)} | {'Categoria'.ljust(25)} | {'Avaliação'.ljust(25)} {'Status'.ljust(25)}')

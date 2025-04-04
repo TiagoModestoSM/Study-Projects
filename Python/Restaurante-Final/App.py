@@ -1,18 +1,14 @@
 from modelos.restaurante_final import Restaurante
 from modelos.cardapio.bebida import Bebida
 from modelos.cardapio.prato import Prato
-
-# Adicionando restaurante e bebidas
-restaurante_praca = Restaurante('Praça','Gourmet')
-bebida_refri = Bebida('Coca-Cola', 8, 'grande')
-prato_churras = Prato('Picanha', 20, 'Churrasquiiin')
-
-# Adicionando no cardápio
-restaurante_praca.adicionar_no_cardapio(bebida_refri)
-restaurante_praca.adicionar_no_cardapio(prato_churras)
+from assests.exibir_subtitulo import exibir_subtitulo
+from assests.exibir_nome_do_programa import exibir_nome_do_programa
 def main():
+    exibir_subtitulo('TIAGUIN COMIDAS')
+    exibir_nome_do_programa()
+    Restaurante.exibir_opcoes()
+    Restaurante.cadastrar_novo_restaurante()
 
-    restaurante_praca.exibir_cardapio
-     
+    Restaurante.listar_restaurantes()
 if __name__ == '__main__':
-    main()
+    main()  
