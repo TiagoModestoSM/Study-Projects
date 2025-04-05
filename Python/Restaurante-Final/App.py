@@ -15,11 +15,15 @@ def escolher_opcoes():
             os.system('cls')
             exibir_subtitulo('CADASTRO DE NOVOS RESTAURANTES')
             Restaurante.cadastrar_novo_restaurante()
+            voltar_menu()
         elif opcao_escolhida == 2:
             os.system('cls')
             exibir_subtitulo('LISTA DE RESTAURANTES')
             Restaurante.listar_restaurantes()
+            voltar_menu()
         elif opcao_escolhida == 3:
+            os.system('cls')
+            Restaurante.listar_restaurantes()
             Restaurante.alternar_estado()
         elif opcao_escolhida == 5:
             finalizar_app()

@@ -1,7 +1,11 @@
 from modelos.avaliacao import Avaliacao
 from modelos.cardapio.item_cardapio import ItemCardapio
+from assests import data_hora
+import random
+
 class Restaurante:
     restaurantes = []
+    numeros_cadastrados = []
     def __init__(self, nome, categoria):
         # init ----> mostrar quais instâncias vou usar
         # self ---> referência da instância que estou usando
@@ -10,6 +14,7 @@ class Restaurante:
         self._ativo = False
         self._avaliacao = []
         self._cardapio = []
+        self._codigo_unico = None
         Restaurante.restaurantes.append(self)
         
     def __str__(self):
@@ -23,22 +28,33 @@ class Restaurante:
         print('4. Remover Restaurante')
         print('5. Sair')
     
+    
     @classmethod
     def cadastrar_novo_restaurante(cls):
         nome = input("Digite o nome do restaurante: ").strip()
         categoria = input("Digite a categoria: ").strip()
-        
+
         if nome and categoria:
             novo_restaurante = cls(nome, categoria)  # Criando uma instância da classe
-            print(f'Restaurante "{novo_restaurante._nome}" cadastrado com sucesso!')
+            novo_restaurante._codigo_unico = cls.codigo_unico()  # Agora sim: atribuindo o código depois de criar o objeto
+            print(f'Restaurante "{novo_restaurante._nome}" cadastrado com sucesso em {data_hora.data_formatada} às {data_hora.hora_formatada} ')
         else:
             print("Nome ou categoria inválidos.")
-        
+
+
+    @classmethod
+    def codigo_unico(cls):
+        while True:
+            codigo = random.randint(1000000000, 9999999999)
+            if codigo not in cls.numeros_cadastrados:
+                cls.numeros_cadastrados.append(codigo)
+                return codigo
+
     @classmethod
     def listar_restaurantes(cls):
-        print(f'{'Nome do Restaurante'.ljust(25)} | {'Categoria'.ljust(25)} | {'Avaliação'.ljust(25)} {'Status'.ljust(25)}')
+        print(f'{'Nome do Restaurante'.ljust(25)} | {'Categoria'.ljust(25)} | {'Avaliação'.ljust(25)} {'Status'.ljust(25)} | {'Cadastro'.ljust(25)}')
         for restaurante in cls.restaurantes:
-            print(f'{restaurante._nome.ljust(25)} | {restaurante._categoria.ljust(25)} | {str(restaurante.media_notas).ljust(25)} | {restaurante.ativo.ljust(25)}')
+            print(f'{restaurante._nome.ljust(25)} | {restaurante._categoria.ljust(25)} | {str(restaurante.media_notas).ljust(25)} | {restaurante.ativo.ljust(22)} | {str(restaurante._codigo_unico).ljust(25)}' )
 
     @property
     def ativo(self):
@@ -75,4 +91,4 @@ class Restaurante:
             else:
                 mensagem_bebida = f'{i}. Nome:{item._nome} | Preço: R${item._preco} | Tamanho: {item.tamanho}'
                 print(mensagem_bebida)
-                
+    
