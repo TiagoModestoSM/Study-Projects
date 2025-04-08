@@ -47,7 +47,7 @@ class Restaurante:
         for restaurante in cls.restaurantes:
             if str(restaurante._codigo_unico) == codigo:
                 restaurante._ativo = not restaurante._ativo
-                print(f"O restaurante '{restaurante._nome}' teve seu estado alterado para {'Ativo' if restaurante._ativo else 'Inativo'}")
+                print(f"O restaurante '{restaurante._nome}' teve seu estado alterado para {'Ativo' if restaurante._ativo else 'Desativado'}")
                 restaurante_encontrado = True
                 break
         if not restaurante_encontrado:

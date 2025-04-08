@@ -32,7 +32,7 @@ def escolher_opcoes():
             os.system('cls')
             listar_restaurante()
             Restaurante.alternar_estado()
-            voltar_menu
+            voltar_menu()
         elif opcao_escolhida == 5:
             finalizar_app()
         else:
