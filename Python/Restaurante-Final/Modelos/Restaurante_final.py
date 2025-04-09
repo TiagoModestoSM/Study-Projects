@@ -33,7 +33,20 @@ class Restaurante:
             print(f'Restaurante "{novo_restaurante._nome}" cadastrado com sucesso em {data} às {hora} ')
         else:
             print("Nome ou categoria inválidos.")
-            
+    
+    @classmethod
+    def remover_restaurante(cls):
+        if not cls.restaurantes:
+            print('Nenhum Restaurante cadastrado ainda')
+            return
+        codigo = str(input('Digite o código do restaurante que deseja remover: ')).strip()
+        for restaurante in cls.restaurantes:
+            if str(restaurante._codigo_unico) == codigo:
+                cls.restaurantes.remove(restaurante)
+                print(f'Restaurante {restaurante._nome} removido com sucesso às {hora} em {data}')
+                return
+        print('Restaurante não encontrado')
+        
     @classmethod
     def escolher_categoria(cls):
         while True:
@@ -61,7 +74,10 @@ class Restaurante:
 
     @classmethod
     def alternar_estado(cls):
-        codigo = input("Digite o código do restaurante que deseja ativar/desativar: ")
+        if not cls.restaurantes:
+            print('Nenhum Restaurante cadastrado ainda')
+            return
+        codigo = input("Digite o código do restaurante que deseja ativar/desativar: ").strip()
         restaurante_encontrado = False
         for restaurante in cls.restaurantes:
             if str(restaurante._codigo_unico) == codigo:
