@@ -52,7 +52,7 @@ def listar_restaurante():
         print(f"{restaurante._nome.ljust(25)} | "
               f"{restaurante._categoria.ljust(25)} | "
               f"{str(restaurante.media_notas).ljust(25)} | "
-              f"{str(restaurante.ativo).ljust(24)} | "
+              f"{restaurante.ativo.ljust(24)} | "
               f"{str(restaurante._codigo_unico).ljust(25)}")
 
 def main():

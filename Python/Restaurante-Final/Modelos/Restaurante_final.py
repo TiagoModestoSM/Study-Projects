@@ -1,16 +1,17 @@
 from modelos.avaliacao import Avaliacao
 from modelos.cardapio.item_cardapio import ItemCardapio
 import utils.helpers as he
+from InquirerPy import inquirer
 import random
 
 data, hora = he.date_time()
 class Restaurante:
     restaurantes = []
     numeros_cadastrados = []
-
+    categorias = [ "Japonesa", "Brasileira", "Italiana", "Mexicana", "Árabe"]
     def __init__(self, nome, categoria):
         self._nome = nome.title()
-        self._categoria = categoria.upper()
+        self._categoria = categoria.title()
         self._ativo = False
         self._avaliacao = []
         self._cardapio = []
@@ -24,7 +25,7 @@ class Restaurante:
     @classmethod
     def cadastrar_novo_restaurante(cls):
         nome = input("Digite o nome do restaurante: ").strip()
-        categoria = input("Digite a categoria: ").strip()
+        categoria = cls.escolher_categoria()
 
         if nome and categoria:
             novo_restaurante = cls(nome, categoria)
@@ -32,7 +33,24 @@ class Restaurante:
             print(f'Restaurante "{novo_restaurante._nome}" cadastrado com sucesso em {data} às {hora} ')
         else:
             print("Nome ou categoria inválidos.")
-
+            
+    @classmethod
+    def escolher_categoria(cls):
+        while True:
+            print('Escolha uma categoria: ')
+            opcoes = cls.categorias + ['Minha categoria não está aqui']
+            escolha = inquirer.select(message = 'Selecione a categoria do restaurante: ',choices = opcoes).execute()
+            
+            if escolha == 'Minha categoria não está aqui':
+                nova_categoria = input('Digite o nome da nova categoria: ').strip().capitalize()
+                if nova_categoria:
+                    cls.categorias.append(nova_categoria)
+                    print(f'Categoria "{nova_categoria}" cadastrada com sucesso!')
+                    return nova_categoria
+                else:
+                    print('Categoria inválida. Tente novamente.')
+            else:
+                return escolha
     @classmethod
     def codigo_unico(cls):
         while True:
