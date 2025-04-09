@@ -5,6 +5,6 @@ class ItemCardapio(ABC):
         self._nome = nome
         self._preco = preco
         
-    @abstractmethod
+    @abstractmethod # Todas as classes derivadas 
     def aplicar_desconto(self):
         pass

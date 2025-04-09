@@ -1,8 +1,9 @@
 from modelos.avaliacao import Avaliacao
 from modelos.cardapio.item_cardapio import ItemCardapio
-from assests import data_hora
+import utils.helpers as he
 import random
 
+data, hora = he.date_time()
 class Restaurante:
     restaurantes = []
     numeros_cadastrados = []
@@ -28,7 +29,7 @@ class Restaurante:
         if nome and categoria:
             novo_restaurante = cls(nome, categoria)
             novo_restaurante._codigo_unico = cls.codigo_unico()
-            print(f'Restaurante "{novo_restaurante._nome}" cadastrado com sucesso em {data_hora.data_formatada} às {data_hora.hora_formatada} ')
+            print(f'Restaurante "{novo_restaurante._nome}" cadastrado com sucesso em {data} às {hora} ')
         else:
             print("Nome ou categoria inválidos.")
 

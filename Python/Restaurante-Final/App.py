@@ -3,8 +3,7 @@ from datetime import datetime
 from modelos.restaurante_final import Restaurante
 from modelos.cardapio.bebida import Bebida
 from modelos.cardapio.prato import Prato
-from assests.exibir_subtitulo import exibir_subtitulo
-from assests.exibir_nome_do_programa import exibir_nome_do_programa
+import utils.helpers as he
 
 
 def exibir_opcoes():
@@ -20,39 +19,30 @@ def escolher_opcoes():
         
         if opcao_escolhida == 1:
             os.system('cls')
-            exibir_subtitulo('CADASTRO DE NOVOS RESTAURANTES')
+            he.exibir_subtitulo('CADASTRO DE NOVOS RESTAURANTES')
             Restaurante.cadastrar_novo_restaurante()
-            voltar_menu()
+            he.voltar_menu()
         elif opcao_escolhida == 2:
             os.system('cls')
-            exibir_subtitulo('LISTA DE RESTAURANTES')
+            he.exibir_subtitulo('LISTA DE RESTAURANTES')
             listar_restaurante()
-            voltar_menu()
+            he.voltar_menu()
         elif opcao_escolhida == 3:
             os.system('cls')
             listar_restaurante()
             Restaurante.alternar_estado()
-            voltar_menu()
+            he.voltar_menu()
         elif opcao_escolhida == 5:
             finalizar_app()
         else:
-            opcao_invalida()
+            he.opcao_invalida()
     except:
-        opcao_invalida()
+        he.opcao_invalida()
             
-            
-def opcao_invalida():
-    print('Opção Inválida')
-    voltar_menu()
-    
-def voltar_menu():
-    
-    input('\nDigite uma tecla para voltar ao menu principal: ')
-    main()
-    
+
     
 def finalizar_app():
-   exibir_subtitulo('Finalizando App')
+   he.exibir_subtitulo('Finalizando App')
    exit
    
 
@@ -67,7 +57,7 @@ def listar_restaurante():
 
 def main():
     os.system('cls')
-    exibir_nome_do_programa()
+    he.exibir_nome_do_programa()
     exibir_opcoes()
     escolher_opcoes()
 
