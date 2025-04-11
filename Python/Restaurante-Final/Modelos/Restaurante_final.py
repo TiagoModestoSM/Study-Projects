@@ -37,7 +37,6 @@ class Restaurante:
     @classmethod
     def remover_restaurante(cls):
         if not cls.restaurantes:
-            print('Nenhum Restaurante cadastrado ainda')
             return
         codigo = str(input('Digite o código do restaurante que deseja remover: ')).strip()
         for restaurante in cls.restaurantes:
@@ -75,7 +74,6 @@ class Restaurante:
     @classmethod
     def alternar_estado(cls):
         if not cls.restaurantes:
-            print('Nenhum Restaurante cadastrado ainda')
             return
         codigo = input("Digite o código do restaurante que deseja ativar/desativar: ").strip()
         restaurante_encontrado = False
@@ -91,11 +89,33 @@ class Restaurante:
     @property
     def ativo(self):
         return '✅' if self._ativo else '❌'
+    
 
-    def receber_avaliacao(self, cliente, nota):
-        if isinstance(nota, int) and 0 < nota <= 5:
-            avaliacao = Avaliacao(cliente, nota)
-            self._avaliacao.append(avaliacao)
+
+    @classmethod
+    def receber_avaliacao(cls):
+        if not cls.restaurantes:
+            return
+
+        codigo = input("Digite o código do restaurante que deseja avaliar: ").strip()
+        for restaurante in cls.restaurantes:
+            if str(restaurante._codigo_unico) == codigo:
+                cliente = input("Digite seu nome: ").strip()
+                try:
+                    nota = int(input("Digite a nota (1 a 5): ").strip())
+                    if 1 <= nota <= 5:
+                        avaliacao = Avaliacao(cliente, nota)
+                        restaurante._avaliacao.append(avaliacao)
+                        print(f"Avaliação registrada com sucesso para o restaurante '{restaurante._nome}'!")
+                    else:
+                        print("Nota fora do intervalo permitido (1 a 5).")
+                except ValueError:
+                    print("Nota inválida. Por favor, insira um número inteiro de 1 a 5.")
+                return
+        print("Restaurante não encontrado.")
+
+
+
 
     @property
     def media_notas(self):

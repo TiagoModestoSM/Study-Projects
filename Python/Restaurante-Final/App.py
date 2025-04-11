@@ -4,6 +4,8 @@ from modelos.restaurante_final import Restaurante
 from modelos.cardapio.bebida import Bebida
 from modelos.cardapio.prato import Prato
 import utils.helpers as he
+from PyQt5.QtWidgets import QApplication, QWidget
+from assets import botton
 
 
 def exibir_opcoes():
@@ -11,7 +13,8 @@ def exibir_opcoes():
     print('2. Listar Restaurante')
     print('3. Alterar Estado do Restaurante')
     print('4. Remover Restaurante')
-    print('5. Sair')
+    print('5. Mandar Avaliação')
+    print('6. Sair')
 
 def escolher_opcoes():
     try:
@@ -32,9 +35,15 @@ def escolher_opcoes():
             he.voltar_menu()
         elif opcao_escolhida == 4:
             he.exibir_subtitulo('REMOVER RESTAURANTE')
+            listar_restaurante()
             Restaurante.remover_restaurante()
             he.voltar_menu()
         elif opcao_escolhida == 5:
+            he.exibir_subtitulo('ENVIE SEU FEEDBACK')
+            listar_restaurante()
+            Restaurante.receber_avaliacao()
+            he.voltar_menu()
+        elif opcao_escolhida == 6:
             finalizar_app()
         else:
             he.opcao_invalida()
